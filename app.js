@@ -95,12 +95,13 @@ app.post("/", function(req, res){
 
   const itemName = req.body.newItem;
   const listName = req.body.list;
+  let day = date.getDate();
 
   const item = new Item({
     name: itemName
   });
 
-  if (listName == "Today"){
+  if (listName == day){
     item.save();
     res.redirect("/");
   } else {
@@ -117,8 +118,9 @@ app.post("/delete", function(req, res){
 
   const checkedItemId = req.body.checkbox;
   const listName = req.body.listName;
+  let day = date.getDate();
 
-  if (listName == "Today"){
+  if (listName == day){
     Item.findByIdAndRemove(checkedItemId, function(err){
       if (!err){
         console.log("Successfully deleted checked item.");
@@ -133,14 +135,6 @@ app.post("/delete", function(req, res){
     });
   }
 
-});
-
-app.get("/work", function(req,res){
-  res.render("list", {listTitle: "Work List", newListItems: workItems});
-});
-
-app.get("/about", function(req, res){
-  res.render("about");
 });
 
 let port = process.env.PORT;
