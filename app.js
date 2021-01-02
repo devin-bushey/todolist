@@ -2,6 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
@@ -25,15 +26,15 @@ const itemsSchema = {
 const Item = mongoose.model("Item", itemsSchema);
 
 const item1 = new Item({
-  name: "Welcome to your todo list",
+  name: "Welcome to your todo list!",
 });
 
 const item2 = new Item({
-  name: "Hit the plus button",
+  name: "Hit the plus button to add an item",
 });
 
 const item3 = new Item({
-  name: "Hit this to delete",
+  name: "<---- Hit this to delete",
 });
 
 const defaultItems = [item1, item2, item3];
@@ -47,6 +48,8 @@ const List = mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
+  let day = date.getDate();
+
   Item.find({}, function(err, foundItems){
 
     if (foundItems.length == 0){
@@ -59,7 +62,7 @@ app.get("/", function(req, res) {
       });
       res.redirect("/");
     } else {
-      res.render("list", {listTitle: "Today", newListItems: foundItems});
+      res.render("list", {listTitle: day, newListItems: foundItems});
     }
 
   });
