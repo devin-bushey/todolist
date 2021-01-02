@@ -17,6 +17,13 @@ h1 {
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 }
 
+@media only screen and (max-width: 400px) {
+  .box {
+    max-width: 90vw;
+    margin: 50px auto;
+  }
+}
+
 #heading {
   background-color: #555b6e;
   text-align: center;
